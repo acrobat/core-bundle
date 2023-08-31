@@ -95,7 +95,7 @@ class PublishWorkflowChecker implements AuthorizationCheckerInterface
     /**
      * {@inheritdoc}
      */
-    public function isGranted($attribute, $object = null)
+    public function isGranted(mixed $attribute, mixed $subject = null): bool
     {
         if (self::VIEW_ATTRIBUTE === $attribute
             && null !== $this->tokenStorage->getToken()
