@@ -11,6 +11,7 @@
 
 namespace Symfony\Cmf\Bundle\CoreBundle\Tests\Unit\PublishWorkflow\Voter;
 
+use Symfony\Component\Security\Core\Authentication\Token\NullToken;
 use function is_subclass_of;
 use PHPUnit\Framework\TestCase;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableReadInterface;
@@ -37,7 +38,7 @@ class PublishableVoterTest extends TestCase
     public function setUp(): void
     {
         $this->voter = new PublishableVoter();
-        $this->token = new AnonymousToken('', '');
+        $this->token = class_exists(AnonymousToken::class) ? new AnonymousToken('', '') : new NullToken();
     }
 
     public function providePublishWorkflowChecker()

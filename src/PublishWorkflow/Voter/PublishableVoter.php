@@ -24,7 +24,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 class PublishableVoter extends Voter
 {
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         return $subject instanceof PublishableReadInterface
             && $this->supportsAttribute($attribute);
@@ -35,7 +35,7 @@ class PublishableVoter extends Voter
      *
      * @param PublishableReadInterface $subject
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         return $subject->isPublishable();
     }

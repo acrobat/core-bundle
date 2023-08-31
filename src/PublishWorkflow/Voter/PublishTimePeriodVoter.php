@@ -44,7 +44,7 @@ class PublishTimePeriodVoter extends Voter
         $this->currentTime = $currentTime;
     }
 
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         return $subject instanceof PublishTimePeriodReadInterface
             && $this->supportsAttribute($attribute);
@@ -55,7 +55,7 @@ class PublishTimePeriodVoter extends Voter
      *
      * @param PublishTimePeriodReadInterface $subject
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $startDate = $subject->getPublishStartDate();
         $endDate = $subject->getPublishEndDate();

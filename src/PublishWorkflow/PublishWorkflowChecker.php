@@ -12,6 +12,7 @@
 namespace Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow;
 
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Core\Authentication\Token\NullToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
@@ -108,9 +109,9 @@ class PublishWorkflowChecker implements AuthorizationCheckerInterface
 
         // not logged in, just check with a dummy token
         if (null === $token) {
-            $token = new AnonymousToken('', '');
+            $token = class_exists(AnonymousToken::class) ? new AnonymousToken('', '') : new NullToken();
         }
 
-        return $this->accessDecisionManager->decide($token, [$attribute], $object);
+        return $this->accessDecisionManager->decide($token, [$attribute], $subject);
     }
 }
