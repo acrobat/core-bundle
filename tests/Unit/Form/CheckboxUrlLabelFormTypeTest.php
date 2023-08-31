@@ -23,11 +23,12 @@ class Router implements RouterInterface
     {
     }
 
-    public function getContext()
+    public function getContext(): RequestContext
     {
+        return new RequestContext();
     }
 
-    public function match($pathinfo)
+    public function match(string $pathinfo): array
     {
     }
 
