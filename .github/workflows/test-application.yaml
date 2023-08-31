@@ -33,6 +33,9 @@ jobs:
                     - php-version: '8.0'
                       symfony-version: 5.1.*
                       test-installation: true
+                    - php-version: '8.1'
+                      symfony-version: 6.3.*
+                      test-installation: true
 
         steps:
             - name: Checkout project
