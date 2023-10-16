@@ -109,7 +109,7 @@ class PublishWorkflowChecker implements AuthorizationCheckerInterface
 
         // not logged in, just check with a dummy token
         if (null === $token) {
-            $token = class_exists(AnonymousToken::class) ? new AnonymousToken('', '') : new NullToken();
+            $token = new NullToken();
         }
 
         return $this->accessDecisionManager->decide($token, [$attribute], $subject);
