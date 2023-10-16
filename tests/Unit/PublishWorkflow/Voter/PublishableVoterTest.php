@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableReadInterface;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowChecker;
 use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\Voter\PublishableVoter;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\CacheableVoterInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -38,7 +37,7 @@ class PublishableVoterTest extends TestCase
     public function setUp(): void
     {
         $this->voter = new PublishableVoter();
-        $this->token = class_exists(AnonymousToken::class) ? new AnonymousToken('', '') : new NullToken();
+        $this->token = new NullToken();
     }
 
     public function providePublishWorkflowChecker()
