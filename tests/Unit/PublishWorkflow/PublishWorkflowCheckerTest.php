@@ -57,7 +57,7 @@ class PublishWorkflowCheckerTest extends TestCase
 
     public function testIsGranted()
     {
-        $token = class_exists(AnonymousToken::class) ? new AnonymousToken('', '') : new NullToken();
+        $token = new NullToken();
         $this->tokenStorage->shouldReceive('getToken')->andReturn($token);
 
         $this->authorizationChecker->shouldNotReceive('isGranted');
@@ -72,7 +72,7 @@ class PublishWorkflowCheckerTest extends TestCase
 
     public function testNotHasBypassRole()
     {
-        $token = class_exists(AnonymousToken::class) ? new AnonymousToken('', '') : new NullToken();
+        $token = new NullToken();
         $this->tokenStorage->shouldReceive('getToken')->andReturn($token);
 
         $this->authorizationChecker->shouldReceive('isGranted')->once()->with($this->role)->andReturn(false);
@@ -87,7 +87,7 @@ class PublishWorkflowCheckerTest extends TestCase
 
     public function testHasBypassRole()
     {
-        $token = class_exists(AnonymousToken::class) ? new AnonymousToken('', '') : new NullToken();
+        $token = new NullToken();
         $this->tokenStorage->shouldReceive('getToken')->andReturn($token);
 
         $this->authorizationChecker->shouldReceive('isGranted')->once()->with($this->role)->andReturn(true);
@@ -105,7 +105,7 @@ class PublishWorkflowCheckerTest extends TestCase
 
         $this->accessDecisionManager
             ->shouldReceive('decide')->once()
-            ->with(class_exists(AnonymousToken::class) ? \Mockery::type(AnonymousToken::class) : \Mockery::type(NullToken::class), [PublishWorkflowChecker::VIEW_ATTRIBUTE], $this->document)
+            ->with(\Mockery::type(NullToken::class), [PublishWorkflowChecker::VIEW_ATTRIBUTE], $this->document)
             ->andReturn(true);
 
         $this->assertTrue($this->publishWorkflowChecker->isGranted(PublishWorkflowChecker::VIEW_ATTRIBUTE, $this->document));
